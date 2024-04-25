@@ -1,0 +1,118 @@
+{
+  "name": "ibrain-vscode",
+  "displayName": "ibrain-vscode",
+  "description": "ibrain vscode extension",
+  "publisher": "Infinisoft",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ibrain-vscode.refactor.selection",
+        "title": "iBrain: Refactor Selection"
+      },
+      {
+        "command": "ibrain-vscode.refactor.file",
+        "title": "iBrain: Refactor File"
+      },
+      {
+        "command": "ibrain-vscode.state.clear",
+        "title": "iBrain: Clear State"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "ibrain-vscode.refactor.selection",
+          "label": "iBrain: Refactor Selection",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "ibrain-vscode.refactor.file",
+          "label": "iBrain: Refactor File",
+          "when": "resourceScheme == file"
+        },
+        {
+          "command": "ibrain-vscode.state.clear",
+          "label": "iBrain: Clear State"
+        }
+      ]
+    },
+    "views": {
+      "ibrain-one-view": [
+        {
+          "id": "ibrain-one.view.projects",
+          "name": "Projects"
+        }
+      ],
+      "explorer": [
+        {
+          "id": "ibrain-one.view.explorer",
+          "name": "iBrain One"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ibrain-one-view",
+          "title": "iBrain One",
+          "icon": "resources/logo.svg"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "iBrain Code",
+      "properties": {
+        "ibrain-vscode.ai.baseUrl": {
+          "type": "string",
+          "default": "https://api.openai.com/v1"
+        },
+        "ibrain-vscode.ai.apiKey": {
+          "type": "string",
+          "description": "API key for accessing OpenAI"
+        },
+        "ibrain-vscode.ai.model": {
+          "type": "string",
+          "description": "Model to be used for AI integration"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.88.0",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@brainstack/log": "^1.1.150",
+    "from": "^0.1.7",
+    "import": "^0.0.6",
+    "marked": "^12.0.2",
+    "openai": "^4.38.2"
+  }
+}
